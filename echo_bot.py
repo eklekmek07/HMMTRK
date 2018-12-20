@@ -12,15 +12,24 @@ logger = logging.getLogger(__name__)
 # update. Error handlers also receive the raised TelegramError object in error.
 def start(bot, update):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Kilyos bota hoşgeldiniz..  Kullanılabilir komutlar:\n/rk  /hs  /mekik  /help')
+    update.message.reply_text('Kilyos bota hoşgeldiniz..  Kullanılabilir komutlar:\n/rk  /hs  /mekikA  /mekikZ  /help')
 
 def help(bot, update):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
+    update.message.reply_text('Kullanılabilir komutlar:\n/rk  /hs  /mekikA  /mekikZ')
 
 def rk(bot, update):
-    update.message.reply_text(bus_calc.calc())
+    update.message.reply_text(bus_calc.calc("rk"))
     print("rk")
+
+def hs(bot, update):
+    update.message.reply_text(bus_calc.calc("hs"))
+
+def mekikA(bot, update):
+    update.message.reply_text(bus_calc.calc("mekikA"))
+
+def mekikZ(bot, update):
+    update.message.reply_text(bus_calc.calc("mekikZ"))
 
 def echo(bot, update):
     """Echo the user message."""
@@ -45,7 +54,10 @@ def main():
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("hs", hs))
     dp.add_handler(CommandHandler("rk", rk))
+    dp.add_handler(CommandHandler("mekikA", mekikA))
+    dp.add_handler(CommandHandler("mekikZ", mekikZ))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
