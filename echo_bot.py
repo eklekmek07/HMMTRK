@@ -12,8 +12,7 @@ logger = logging.getLogger(__name__)
 # update. Error handlers also receive the raised TelegramError object in error.
 def start(bot, update):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Kilyos bota hoşgeldiniz..Kullanılabilir komutlar:\n/rk  /hs  /mekik  /help')
-
+    update.message.reply_text('Kilyos bota hoşgeldiniz..  Kullanılabilir komutlar:\n/rk  /hs  /mekik  /help')
 
 def help(bot, update):
     """Send a message when the command /help is issued."""
@@ -32,6 +31,8 @@ def error(bot, update, error):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
 
+def answer(bot, update):
+    update.message.reply_text('Ve aleyküm esselam')
 
 def main():
     """Start the bot."""
@@ -48,6 +49,7 @@ def main():
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
+    dp.add_handler(MessageHandler("selam", answer))
 
     # log all errors
     dp.add_error_handler(error)

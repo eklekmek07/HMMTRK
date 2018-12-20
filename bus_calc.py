@@ -3,18 +3,43 @@ import time
 from math import floor
 #work in progres.. the program that shows how many minutes to next coming rk for Sarıtepe Campus
 
-weekday = ("07.00", "08.00", "09.00", "09.55", "10.35", "12.15", "13.05", "13.50", "14.55", "15.35", "16.15", "17.30", "18.35", "19.15", "20.35", "21.15", "22.00", "23.55")
-saturday = ("07.20", "08.45", "10.00", "11.10", "12.25", "13.40", "15.00", "16.15", "17.45", "19.15", "20.35", "21.50", "23.55")
-sunday = ("08.45", "11.15", "13.45", "16.15", "19.15", "19.45", "21.50","22.15", "23.55")
-mekik = ("17.00")
-def calc():
+rk_week = ("07.00", "08.00", "09.00", "09.55", "10.35", "12.15", "13.05", "13.50", "14.55", "15.35", "16.15", "17.30", "18.35", "19.15", "20.35", "21.15", "22.00", "23.55")
+rk_sat = ("07.20", "08.45", "10.00", "11.10", "12.25", "13.40", "15.00", "16.15", "17.45", "19.15", "20.35", "21.50", "23.55")
+rk_sun = ("08.45", "11.15", "13.45", "16.15", "19.15", "19.45", "21.50","22.15", "23.55")
+hs_week = ()
+hs_sat = ()
+hs_sun = ()
+mekikA_week = ("8.00","14.00","15.30","16.30")
+mekikA_end = ("10,00","16.00")
+mekikZ_week = ("13.00","14.30","19.00")
+mekikZ_end = ("11.00","13.30")
+def calc(bus = None):
     cd = time.strftime("%c")
-    if cd == "Sun":
-        day = sunday
-    elif cd == "Sat":
-        day = saturday
-    else:
-        day = weekday
+    if bus == "rk":
+        if cd == "Sun":
+            day = rk_sun
+        elif cd == "Sat":
+            day = rk_sat
+        else:
+            day = rk_week
+    elif bus == "hs":
+        if cd == "Sun":
+            day = hs_sun
+        elif cd == "Sat":
+            day = hs_sat
+        else:
+            day = hs_week
+    elif bus == "mekikA":
+        if cd == "Sun" or "Sat":
+            day = mekikA_end
+        else:
+            day = mekikA_week
+    elif bus == "mekikZ":
+        if cd == "Sun" or "Sat":
+            day = mekikZ_end
+        else:
+            day = mekikZ_week
+
     cm = time.strftime("%M")
     ch = time.strftime("%H")
     cs = time.strftime("%S") 
