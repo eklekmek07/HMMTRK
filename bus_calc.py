@@ -13,8 +13,16 @@ mekikA_week = ("08.00","14.00","15.30","16.30")
 mekikA_end = ("10.00","16.00")
 mekikZ_week = ("13.00","14.30","19.00")
 mekikZ_end = ("11.00","13.30")
+
 def calc(bus = None):
     cd = time.strftime("%c")
+    if cd == "Fri":
+        pass
+    elif cd == "Sat":
+        pass
+    elif cd == "Sun":
+        
+        pass
     if bus == "rk":
         if cd == "Sun":
             b_list = rk_sun
@@ -55,5 +63,10 @@ def calc(bus = None):
         if sub > 0:
             break
         count += 1
+        if len(b_list) == count:
+            return ("Next {} is tomorrow at {}".format(bus ,b_list[0]))
     return ("Remaining to {}: {}.{}".format(bus,round(sub//3600),floor(sub/60%60)))
-
+print(calc("hs"))
+print(calc("rk"))
+print(calc("mekikA"))
+print(calc("mekikZ"))
