@@ -54,9 +54,9 @@ class bus():
             if len(self.used_list) == self.bus_count:
                 if self.current_day == "Fri":
                     self.bh, self.bm = self.time_sat[0].split(".")
-                elif self.current_day == "Sat":
+                if self.current_day == "Sat":
                     self.bh, self.bm = self.time_sun[0].split(".")
-                elif self.current_day == "Sun":
+                if self.current_day == "Sun":
                     self.bh, self.bm = self.time_week[0].split(".")
                 self.busL = (1971,0,1,int(self.bh),int(self.bm),0,0,0,0)
                 self.target_bus_time = time.mktime(self.busL)
@@ -68,7 +68,7 @@ class bus():
     
     def next_bus(self,n = 1):
         self.update_time()
-        self.bus_count += n   
+        self.bus_count += n
         self.busL = (1971,0,0,int(self.bh),int(self.bm),0,0,0,0)
         if len(self.used_list) == self.bus_count:
             self.bus_count = 0
@@ -89,9 +89,7 @@ class bus():
 hs = bus("HS",hs_week,hs_sat,hs_sun)
 rk = bus("RK",rk_week,rk_sat,rk_sun)
 rk.closest_bus()
-print(rk.bus_return())
 def bus_calc(bus, n = 0): #n as bus number
-    if bus ==
     bus.closest_bus()
     bus.next_bus(n)
     return bus.bus_return()
@@ -99,7 +97,8 @@ print(bus_calc(rk,0))
 print(bus_calc(rk,1))
 print(bus_calc(rk,2))
 print(bus_calc(rk,3))
-print(bus_calc(rk,4))
-print(bus_calc(rk,5))
+print(bus_calc(rk,6))
+print(bus_calc(rk,7))
+print(bus_calc(rk,10))
 print("----")
 

@@ -2,7 +2,7 @@ from telegram import ReplyKeyboardMarkup
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters, RegexHandler,
                           ConversationHandler)
 
-import logging
+import logging, bus_calcN
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -12,8 +12,8 @@ logger = logging.getLogger(__name__)
 
 CHOOSING, TYPING_REPLY, TYPING_CHOICE = range(3)
 
-reply_keyboard = [['Age', 'Favourite colour'],
-                  ['Number of siblings', 'Something else...'],
+reply_keyboard = [['Rk', 'Hs'],
+                  ['Mekik Arıköy', 'Mekik Zekeriyaköy', 'Mekik Kilyos'],
                   ['Done']]
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
@@ -28,20 +28,13 @@ def facts_to_str(user_data):
 
 
 def start(bot, update):
-    update.message.reply_text(
-        "Hi! My name is Doctor Botter. I will hold a more complex conversation with you. "
-        "Why don't you tell me something about yourself?",
-        reply_markup=markup)
-
+    update.message.reply_text("Welcome to Kilyos Bot..",reply_markup=markup)
     return CHOOSING
-
 
 def regular_choice(bot, update, user_data):
     text = update.message.text
     user_data['choice'] = text
-    update.message.reply_text(
-        'Your {}? Yes, I would love to hear about that!'.format(text.lower()))
-
+    update.message.reply_text(bus_calcN.bus_calc(rk,1))
     return TYPING_REPLY
 
 
@@ -84,7 +77,6 @@ def error(bot, update, error):
 
 
 def main():
-    # Create the Updater and pass it your bot's token.
     updater = Updater("677471119:AAEM9cI6auBPyxgIclp8i4ywvKsJoJIXN9M")
 
     # Get the dispatcher to register handlers
@@ -95,11 +87,7 @@ def main():
         entry_points=[CommandHandler('start', start)],
 
         states={
-            CHOOSING: [RegexHandler('^(Age|Favourite colour|Number of siblings)$',
-                                    regular_choice,
-                                    pass_user_data=True),
-                       RegexHandler('^Something else...$',
-                                    custom_choice),
+            CHOOSING: [RegexHandler('^(Rk|Favourite colour|Number of siblings)$', regular_choice, pass_user_data=True), RegexHandler('^Something else...$', custom_choice),
                        ],
 
             TYPING_CHOICE: [MessageHandler(Filters.text,
@@ -117,16 +105,8 @@ def main():
     )
 
     dp.add_handler(conv_handler)
-
-    # log all errors
     dp.add_error_handler(error)
-
-    # Start the Bot
     updater.start_polling()
-
-    # Run the bot until you press Ctrl-C or the process receives SIGINT,
-    # SIGTERM or SIGABRT. This should be used most of the time, since
-    # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
 
 

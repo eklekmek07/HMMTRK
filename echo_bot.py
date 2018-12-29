@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 # update. Error handlers also receive the raised TelegramError object in error.
 def start(bot, update):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Kilyos bota hoşgeldiniz..  Kullanılabilir komutlar:\n/rk  /hs  /mekikA  /mekikZ  /help')
+    update.message.reply_text('Kilyos bota hoşgeldiniz.. Kullanılabilir komutlar:\n/rk  /hs  /mekikA  /mekikZ  /help')
 
 def help(bot, update):
     """Send a message when the command /help is issued."""
@@ -20,7 +20,7 @@ def help(bot, update):
 
 def rk(bot, update):
     update.message.reply_text(bus_calc.calc("rk"))
-    print("rk")
+    bot.send_message(chat_id=update.message.chat_id, text=update.message.chat_id)
 
 def hs(bot, update):
     update.message.reply_text(bus_calc.calc("hs"))
@@ -33,7 +33,6 @@ def mekikZ(bot, update):
 
 def echo(bot, update):
     """Echo the user message."""
-    update.message.reply_text(update.message.text)
     update.message.reply_text(update.message.text)
 
 def error(bot, update, error):

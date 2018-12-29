@@ -1,18 +1,20 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-import logging, bus_calc
+import logging, bus_calc, shelve
 
-# Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
-
 logger = logging.getLogger(__name__)
+a = "user"
+b = "canan"
+d = shelve.open("data")
+if a not in d:
+    d[a]
+    print(d[a])
 
 
-# Define a few command handlers. These usually take the two arguments bot and
-# update. Error handlers also receive the raised TelegramError object in error.
 def start(bot, update):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Kilyos bota hoşgeldiniz..  Kullanılabilir komutlar:\n/rk  /hs  /mekikA  /mekikZ  /help')
+    update.message.reply_text('Kilyos bota hoşgeldiniz.. Kullanılabilir komutlar:\n/rk  /hs  /mekikA  /mekikZ  /help')
 
 def help(bot, update):
     """Send a message when the command /help is issued."""
@@ -20,7 +22,7 @@ def help(bot, update):
 
 def rk(bot, update):
     update.message.reply_text(bus_calc.calc("rk"))
-    print("rk")
+    bot.send_message(chat_id=update.message.chat_id, text=update.message.chat_id)
 
 def hs(bot, update):
     update.message.reply_text(bus_calc.calc("hs"))
@@ -35,13 +37,9 @@ def echo(bot, update):
     """Echo the user message."""
     update.message.reply_text(update.message.text)
 
-
 def error(bot, update, error):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
-
-def answer(bot, update):
-    update.message.reply_text('Ve aleyküm esselam')
 
 def main():
     """Start the bot."""
@@ -61,7 +59,6 @@ def main():
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
-    dp.add_handler(MessageHandler("selam", answer))
 
     # log all errors
     dp.add_error_handler(error)
